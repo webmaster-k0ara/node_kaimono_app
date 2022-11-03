@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+require('dotenv').config()
+const env = process.env
+
 
 
 
@@ -8,11 +11,12 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'list_app'
+  host: env.HOST,
+  user: env.USER,
+  password: env.PASS,
+  database: env.DB
 });
+
 
 app.get('/', (req, res) => {
   res.render('top.ejs');
