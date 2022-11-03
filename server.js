@@ -15,6 +15,10 @@ const connection = mysql.createConnection({
 });
 
 app.get('/', (req, res) => {
+  connection.query(
+    'CREATE TABLE IF NOT EXISTS items (id INT(11) NOT NULL auto_increment PRIMARY KEY,name TEXT) DEFAULT CHARSET = utf8', (error, results) => {
+
+  })
   res.render('top.ejs');
 });
 
