@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 
 app.get('/index',(req,res) => {
   connection.query('SELECT * FROM items',(error,results) => {
+    if (error) {
+      console.log(error)
+    }
     res.render('index.ejs',{items: results});
   })
 });
