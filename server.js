@@ -1,22 +1,18 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-require('dotenv').config()
-const env = process.env
-
-
-
+require('dotenv').config();
+const env = process.env;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 const connection = mysql.createConnection({
-  host: env.HOST,
-  user: env.USER,
-  password: env.PASS,
-  database: env.DB
+  host: env.DB_HOST,
+  user: env.DB_USER,
+  password: env.DB_PASS,
+  database: env.DB_NAME
 });
-
 
 app.get('/', (req, res) => {
   res.render('top.ejs');
@@ -24,9 +20,6 @@ app.get('/', (req, res) => {
 
 app.get('/index',(req,res) => {
   connection.query('SELECT * FROM items',(error,results) => {
-    if (error) {
-      console.log(error)
-    }
     res.render('index.ejs',{items: results});
   })
 });
